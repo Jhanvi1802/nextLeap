@@ -6,7 +6,7 @@ riskometer, benchmark, how to download a capital-gains statement — using **onl
 official public pages**. Every answer carries exactly one source link. It gives no
 advice, quotes no returns, and accepts no personal data.
 
-**Live prototype:** https://rainbow-cajeta-15d6f9.netlify.app
+**Live prototype:** https://jhanvi1802.github.io/nextLeap/
 **Product:** Groww · **Corpus AMC:** Axis Mutual Fund · **Sources:** 23 official pages
 
 > Nothing to install. Open the link, continue as guest, and ask one of the three
