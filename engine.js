@@ -83,12 +83,31 @@
     'how much profit', 'how much will i', 'how much can i', 'will i earn', 'will i get',
     'doubled', 'double my', 'growth rate', 'annualised', 'annualized', 'outperform',
     'beat the market', 'how much gain', 'profit',
-    'nav history', 'historical nav', 'track record', 'how has it done', 'how did it perform'
+    'nav history', 'historical nav', 'track record', 'how has it done',
+    'perform'   /* stem: covers perform / performed / performing / performance */
   ];
   function detectPerformance(q) {
     /* 'capital gains statement' is a document request, not a performance claim */
     if (q.indexOf('statement') > -1) return null;
     for (var i = 0; i < PERF.length; i++) if (q.indexOf(PERF[i]) > -1) return PERF[i];
+    return null;
+  }
+
+  /* ---------- 3b. wrong-AMC guard --------------------------
+     Without this, "expense ratio of HDFC Flexi Cap?" matches the alias
+     "flexi cap" and answers with the AXIS figure under an Axis citation
+     — a confidently wrong answer, the worst failure mode for a facts bot.
+     Naming any AMC other than Axis must fall out of scope.            */
+  var OTHER_AMCS = [
+    'hdfc', 'sbi', 'icici', 'nippon', 'kotak', 'mirae', 'parag parikh', 'ppfas',
+    'quant', 'uti', 'tata', 'dsp', 'franklin', 'aditya birla', 'birla', 'canara',
+    'invesco', 'edelweiss', 'motilal', 'bandhan', 'baroda', 'hsbc', 'navi',
+    'jm financial', 'ltmf', 'sundaram', 'whiteoak', 'zerodha', 'groww mutual',
+    'union mutual', 'pgim', 'mahindra', 'iti mutual', 'shriram', 'trust mutual',
+    'bajaj finserv', 'helios', 'samco', 'nj mutual', 'taurus', 'quantum'
+  ];
+  function detectOtherAMC(q) {
+    for (var i = 0; i < OTHER_AMCS.length; i++) if (q.indexOf(OTHER_AMCS[i]) > -1) return OTHER_AMCS[i];
     return null;
   }
 
@@ -225,6 +244,16 @@
         kind: 'refusal_performance',
         text: 'I do not quote, calculate or compare scheme returns, and I cannot project future gains. Past and current performance is published in the official monthly factsheet, linked below. I can still answer factual questions such as expense ratio, exit load, lock-in or benchmark.',
         source: C.EDU.performance, asOn: C.META.compiledOn, slots: { trigger: perf }
+      };
+    }
+
+    /* 3b. another fund house named — never answer with an Axis figure */
+    var amc = detectOtherAMC(q);
+    if (amc) {
+      return {
+        kind: 'out_of_scope',
+        text: 'I only hold figures for four Axis Mutual Fund schemes, so I cannot answer for another fund house — and I will not substitute an Axis number in its place. Check that AMC’s own scheme page, or ask me the same question about Axis Large Cap, Flexi Cap, ELSS Tax Saver or Mid Cap.',
+        source: C.EDU.general, asOn: C.META.compiledOn, slots: { otherAMC: amc }
       };
     }
 

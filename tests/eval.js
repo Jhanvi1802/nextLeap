@@ -97,6 +97,22 @@ ok('PII -> refusal_pii (email)', kindOf('my email is someone@example.com') === '
 ok('PII -> refusal_pii (aadhaar)', kindOf('aadhaar 1234 5678 9012') === 'refusal_pii');
 ok('out of corpus -> out_of_scope', kindOf('What is the weather in Mumbai?') === 'out_of_scope');
 
+/* Another fund house must never be answered with an Axis figure.
+   Regression guard: "HDFC Flexi Cap" once matched the alias "flexi cap"
+   and returned the Axis TER under an Axis citation. */
+['Expense ratio of HDFC Flexi Cap Fund?',
+ 'SBI Bluechip minimum SIP?',
+ 'What is the exit load on ICICI Prudential Mid Cap?',
+ 'Nippon India Large Cap benchmark',
+ 'Kotak Flexi Cap riskometer'].forEach(function (q) {
+  var r = E.ask(q);
+  ok('wrong-AMC declined: ' + JSON.stringify(q.slice(0, 34)), r.kind === 'out_of_scope', r.kind);
+  ok('wrong-AMC quotes no Axis number: ' + JSON.stringify(q.slice(0, 28)),
+     !/\d+\.\d+%/.test(r.text), r.text.slice(0, 50));
+});
+ok('"performed" is treated as a performance question',
+   E.ask('How has Axis Large Cap performed?').kind === 'refusal_performance');
+
 /* the trap: "capital gains statement" must NOT trip the performance gate */
 ok('capital gains STATEMENT is a fact, not a perf refusal',
    kindOf('How do I download my capital gains statement?') === 'fact',
