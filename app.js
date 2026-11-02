@@ -1,5 +1,5 @@
 /* ============================================================
-   app.js — UI shell: mock sign-in, navigation, chat, sources, settings
+   app.js - UI shell: mock sign-in, navigation, chat, sources, settings
    The answering logic lives in engine.js; this file only presents it.
    Nothing here makes a network request. Settings persist in
    localStorage, wrapped in try/catch so private mode degrades cleanly.
@@ -28,7 +28,7 @@
         var p = JSON.parse(raw);
         for (var j in DEFAULTS) if (DEFAULTS.hasOwnProperty(j) && p[j] !== undefined) out[j] = p[j];
       }
-    } catch (e) { /* private mode or blocked storage — defaults are fine */ }
+    } catch (e) { /* private mode or blocked storage - defaults are fine */ }
     return out;
   }
   function save() {
@@ -74,7 +74,7 @@
     var err = $('autherr');
     var bad = v ? E.detectPII(v) : null;
     if (bad) {
-      err.textContent = 'That looks like a ' + bad + '. This prototype never takes one — use a first name, or continue as guest.';
+      err.textContent = 'That looks like a ' + bad + '. This prototype never takes one - use a first name, or continue as guest.';
       err.hidden = false;
       return;
     }
@@ -104,12 +104,12 @@
 
   /* ---------------- chat ---------------- */
   var TAGS = {
-    fact: 'Fact · cited',
+    fact: 'Fact | cited',
     clarify: 'Needs one more detail',
     out_of_scope: 'Outside my sources',
-    refusal_advice: 'Refused · advice',
-    refusal_performance: 'Refused · performance',
-    refusal_pii: 'Blocked · personal data'
+    refusal_advice: 'Refused | advice',
+    refusal_performance: 'Refused | performance',
+    refusal_pii: 'Blocked | personal data'
   };
 
   function render(res) {
@@ -176,7 +176,7 @@
     .forEach(function (g) {
       if (!groups[g]) return;
       var box = el('div', 'srcgroup');
-      box.appendChild(el('h3', null, g + ' · ' + groups[g].length));
+      box.appendChild(el('h3', null, g + ' | ' + groups[g].length));
       groups[g].forEach(function (id) {
         var s = window.SOURCES[id];
         var a = el('a', 'srcitem');
@@ -224,7 +224,7 @@
     b.type = 'button';
     b.setAttribute('role', 'switch');
     b.setAttribute('aria-checked', on ? 'true' : 'false');
-    if (locked) { b.disabled = true; b.title = 'Always on — this defines the product'; }
+    if (locked) { b.disabled = true; b.title = 'Always on - this defines the product'; }
     else b.addEventListener('click', function () {
       var now = !b.classList.contains('on');
       b.classList.toggle('on', now);
@@ -242,7 +242,7 @@
     var a = section('Answering');
     a.appendChild(row(
       'Default plan',
-      'Which plan to quote when you don’t say. Regular and Direct have different expense ratios — Axis Large Cap is 1.76% regular vs 0.92% direct.',
+      'Which plan to quote when you don\'t say. Regular and Direct have different expense ratios - Axis Large Cap is 1.76% regular vs 0.92% direct.',
       segment([{ t: 'Regular', v: 'regular' }, { t: 'Direct', v: 'direct' }], S.defaultPlan,
         function (v) { S.defaultPlan = v; save(); })
     ));
@@ -253,16 +253,16 @@
         function (v) { S.citation = v; save(); })
     ));
     a.appendChild(row('Answer length', 'Capped at 3 sentences. Fixed by the product spec.', el('span', 'lockchip', '3 max')));
-    a.appendChild(row('Show source date', 'Every answer ends with the source page’s own as-on date.', el('span', 'lockchip', 'Always')));
+    a.appendChild(row('Show source date', 'Every answer ends with the source page\'s own as-on date.', el('span', 'lockchip', 'Always')));
     host.appendChild(a);
 
     /* --- Safety --- */
-    var sf = section('Safety — always on');
+    var sf = section('Safety - always on');
     [
       ['Facts-only mode', 'No recommendations, rankings or suitability. Buy/sell/hold/"which is better" questions are refused.'],
       ['No performance claims', 'Returns, CAGR, XIRR, NAV history and projections are refused and pointed at the official factsheet.'],
       ['Personal data blocking', 'PAN, Aadhaar, phone, email, folio and OTP patterns are blocked before anything is read, and never echoed back.'],
-      ['Source-grounded answers only', 'No reply is produced without exactly one citation from the indexed corpus — refusals included.']
+      ['Source-grounded answers only', 'No reply is produced without exactly one citation from the indexed corpus - refusals included.']
     ].forEach(function (p) { sf.appendChild(row(p[0], p[1], toggle(true, true))); });
     host.appendChild(sf);
 
@@ -277,7 +277,7 @@
 
     /* --- Privacy --- */
     var pv = section('Privacy & data');
-    pv.appendChild(row('Account', S.name ? ('Signed in as ' + S.name + ' — a display name only, stored in this browser.') : 'Signed in as guest. No account exists.', el('span', 'lockchip', S.name ? 'Local' : 'Guest')));
+    pv.appendChild(row('Account', S.name ? ('Signed in as ' + S.name + ' - a display name only, stored in this browser.') : 'Signed in as guest. No account exists.', el('span', 'lockchip', S.name ? 'Local' : 'Guest')));
     pv.appendChild(row('Network calls', 'None. The corpus and the engine ship with the page; your question never leaves the browser.', el('span', 'lockchip', 'Zero')));
     pv.appendChild(row('What is stored', 'Your display name and these settings, in localStorage. No conversation history is persisted.', el('span', 'lockchip', 'Local only')));
     var clr = el('button', 'btn ghost', 'Clear conversation');
@@ -301,8 +301,8 @@
     /* --- Corpus --- */
     var cp = section('Corpus');
     var n = Object.keys(window.SOURCES).length;
-    cp.appendChild(row('Indexed sources', n + ' official pages — Axis Mutual Fund, SEBI, AMFI and the registrars. No blogs or aggregators.', el('span', 'lockchip', n + ' pages')));
-    cp.appendChild(row('Schemes in scope', 'Axis Large Cap, Axis Flexi Cap, Axis ELSS Tax Saver and Axis Mid Cap — each in Regular and Direct plans.', el('span', 'lockchip', '4 schemes')));
+    cp.appendChild(row('Indexed sources', n + ' official pages - Axis Mutual Fund, SEBI, AMFI and the registrars. No blogs or aggregators.', el('span', 'lockchip', n + ' pages')));
+    cp.appendChild(row('Schemes in scope', 'Axis Large Cap, Axis Flexi Cap, Axis ELSS Tax Saver and Axis Mid Cap - each in Regular and Direct plans.', el('span', 'lockchip', '4 schemes')));
     cp.appendChild(row('Figures as on', 'Scheme figures were read from the official pages on this date and are stated with every answer.', el('span', 'lockchip', window.META.schemeFactsAsOn)));
     var br = el('button', 'btn ghost', 'Browse all sources');
     br.type = 'button';
@@ -315,13 +315,13 @@
     var ab = section('About');
     var txt = el('div', 'about');
     txt.innerHTML =
-      '<b>Mutual Fund Facts</b> — a facts-only FAQ assistant. Built as a product case study for ' +
+      '<b>Mutual Fund Facts</b> - a facts-only FAQ assistant. Built as a product case study for ' +
       '<b>Groww</b>; the indexed corpus is <b>Axis Mutual Fund</b> plus SEBI, AMFI and registrar pages.' +
       '<br><br><b>Disclaimer.</b> This is a student case-study prototype built for a product-management ' +
       'assignment. It is <b>not</b> affiliated with, endorsed by, or an official product of Groww or Axis ' +
       'Mutual Fund. It provides published facts only and does <b>not</b> constitute investment advice, a ' +
       'recommendation, or an offer to buy or sell any security. Figures are reproduced from official pages ' +
-      'on the dates shown and change over time — always confirm on the linked source before acting. Mutual ' +
+      'on the dates shown and change over time - always confirm on the linked source before acting. Mutual ' +
       'fund investments are subject to market risks; read all scheme related documents carefully.';
     ab.appendChild(txt);
     ab.appendChild(row('Version', 'Corpus compiled ' + window.META.compiledOn + '.', el('span', 'lockchip', 'v1.0')));

@@ -28,10 +28,10 @@ var QUERIES = [
 var LABEL = {
   fact: 'Answered (fact)',
   clarify: 'Clarifying question',
-  out_of_scope: 'Declined — outside corpus',
-  refusal_advice: 'Refused — advice',
-  refusal_performance: 'Refused — performance',
-  refusal_pii: 'Blocked — personal data'
+  out_of_scope: 'Declined - outside corpus',
+  refusal_advice: 'Refused - advice',
+  refusal_performance: 'Refused - performance',
+  refusal_pii: 'Blocked - personal data'
 };
 
 var out = [];
@@ -39,13 +39,13 @@ out.push('# Sample Q&A');
 out.push('');
 out.push('Ten queries run against the live assistant. **This file is generated** by');
 out.push('`node tools/gen-sample-qa.js`, so every answer below is exactly what the');
-out.push('prototype returns — it cannot drift from the shipped behaviour.');
+out.push('prototype returns - it cannot drift from the shipped behaviour.');
 out.push('');
 out.push('Seven are factual; three demonstrate the refusal paths the brief requires');
-out.push('(opinion, performance, personal data). Every row — refusals included —');
+out.push('(opinion, performance, personal data). Every row - refusals included -');
 out.push('carries exactly one official source link.');
 out.push('');
-out.push('Corpus compiled: ' + C.META.compiledOn + '  ·  Scheme figures as on: ' + C.META.schemeFactsAsOn);
+out.push('Corpus compiled: ' + C.META.compiledOn + '  |  Scheme figures as on: ' + C.META.schemeFactsAsOn);
 out.push('');
 out.push('---');
 out.push('');

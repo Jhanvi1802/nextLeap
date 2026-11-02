@@ -1,13 +1,13 @@
 /* ============================================================
-   tests/eval.js — automated conformance check
+   tests/eval.js - automated conformance check
    Run:  node tests/eval.js      (from the project root)
 
    Asserts the constraints the milestone brief sets out:
-     - every answer is <= 3 sentences
-     - every answer carries exactly one citation, with a real URL
-     - every cited URL exists in sources.csv
-     - advice / performance / PII questions are refused, with a link
-     - refusals never echo the user's PII back
+ - every answer is <= 3 sentences
+ - every answer carries exactly one citation, with a real URL
+ - every cited URL exists in sources.csv
+ - advice / performance / PII questions are refused, with a link
+ - refusals never echo the user's PII back
    ============================================================ */
 var fs = require('fs');
 var path = require('path');

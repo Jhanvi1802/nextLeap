@@ -20,7 +20,7 @@ page footer.
 > official product of Groww or Axis Mutual Fund. It provides published facts only
 > and does **not** constitute investment advice, a recommendation, or an offer to
 > buy or sell any security. Figures are reproduced from official pages on the dates
-> shown and change over time — always confirm on the linked source before acting.
+> shown and change over time - always confirm on the linked source before acting.
 > Mutual fund investments are subject to market risks; read all scheme related
 > documents carefully.
 
@@ -33,7 +33,7 @@ These are the user-facing refusals, reproduced verbatim from `engine.js`.
 **Opinion / recommendation / suitability**
 
 > I can only share published facts, so I cannot tell you what to buy, sell, hold or
-> switch, or which scheme suits you. Ask me a factual question instead — expense
+> switch, or which scheme suits you. Ask me a factual question instead - expense
 > ratio, exit load, minimum SIP, lock-in, riskometer or benchmark. For general
 > investor education, the AMFI link below is a good starting point.
 
@@ -44,7 +44,7 @@ These are the user-facing refusals, reproduced verbatim from `engine.js`.
 > factsheet, linked below. I can still answer factual questions such as expense
 > ratio, exit load, lock-in or benchmark.
 
-**Personal data detected** (`<category>` is the type found — never the value)
+**Personal data detected** (`<category>` is the type found - never the value)
 
 > It looks like that message contains a `<category>`, so I have not stored or
 > processed it. Please never share PAN, Aadhaar, folio or account numbers, OTPs,

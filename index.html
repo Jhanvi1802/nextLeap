@@ -6,49 +6,49 @@
 <title>Mutual Fund Facts</title>
 <style>
   :root{
-    --bg:#EEF1F5; --bg2:#F8FAFC;
-    --card:#FFFFFF; --card2:#FBFCFD;
-    --ink:#0E1620; --ink2:#48566A; --ink3:#8795A8;
-    --line:#E2E8F0; --line2:#EDF1F6;
-    --brand:#00A86B; --brand2:#00C97E; --brandDeep:#00704A;
-    --brandFill:#E9F9F2; --brandLine:#B9E8D4;
-    --warn:#B26A00; --warnFill:#FFF7E8; --warnLine:#F0D9A8;
-    --stop:#C0362C; --stopFill:#FDEEEC; --stopLine:#F2C9C4;
-    --sh1:0 1px 2px rgba(14,22,32,.05);
-    --sh2:0 2px 4px rgba(14,22,32,.05), 0 6px 14px rgba(14,22,32,.06);
-    --sh3:0 8px 18px rgba(14,22,32,.09), 0 18px 44px rgba(14,22,32,.10);
-    --shBrand:0 6px 16px rgba(0,168,107,.28), 0 2px 5px rgba(0,168,107,.20);
-    --r:14px;
+ --bg:#EEF1F5; --bg2:#F8FAFC;
+ --card:#FFFFFF; --card2:#FBFCFD;
+ --ink:#0E1620; --ink2:#48566A; --ink3:#8795A8;
+ --line:#E2E8F0; --line2:#EDF1F6;
+ --brand:#00A86B; --brand2:#00C97E; --brandDeep:#00704A;
+ --brandFill:#E9F9F2; --brandLine:#B9E8D4;
+ --warn:#B26A00; --warnFill:#FFF7E8; --warnLine:#F0D9A8;
+ --stop:#C0362C; --stopFill:#FDEEEC; --stopLine:#F2C9C4;
+ --sh1:0 1px 2px rgba(14,22,32,.05);
+ --sh2:0 2px 4px rgba(14,22,32,.05), 0 6px 14px rgba(14,22,32,.06);
+ --sh3:0 8px 18px rgba(14,22,32,.09), 0 18px 44px rgba(14,22,32,.10);
+ --shBrand:0 6px 16px rgba(0,168,107,.28), 0 2px 5px rgba(0,168,107,.20);
+ --r:14px;
   }
   @media (prefers-color-scheme: dark){
     :root:not([data-theme="light"]){
-      --bg:#080C11; --bg2:#0D1218;
-      --card:#141B23; --card2:#18212A;
-      --ink:#EAF0F6; --ink2:#A7B5C4; --ink3:#73828F;
-      --line:#242F3A; --line2:#1C2630;
-      --brand:#2FD89C; --brand2:#4FE8B2; --brandDeep:#1EA87A;
-      --brandFill:#0E2C21; --brandLine:#1D5340;
-      --warn:#E3A845; --warnFill:#2A2113; --warnLine:#4A3A1C;
-      --stop:#F2887C; --stopFill:#2C1715; --stopLine:#4E2622;
-      --sh1:0 1px 2px rgba(0,0,0,.4);
-      --sh2:0 2px 5px rgba(0,0,0,.45), 0 8px 18px rgba(0,0,0,.4);
-      --sh3:0 10px 24px rgba(0,0,0,.55), 0 22px 54px rgba(0,0,0,.45);
-      --shBrand:0 6px 18px rgba(47,216,156,.22), 0 2px 5px rgba(47,216,156,.18);
+ --bg:#080C11; --bg2:#0D1218;
+ --card:#141B23; --card2:#18212A;
+ --ink:#EAF0F6; --ink2:#A7B5C4; --ink3:#73828F;
+ --line:#242F3A; --line2:#1C2630;
+ --brand:#2FD89C; --brand2:#4FE8B2; --brandDeep:#1EA87A;
+ --brandFill:#0E2C21; --brandLine:#1D5340;
+ --warn:#E3A845; --warnFill:#2A2113; --warnLine:#4A3A1C;
+ --stop:#F2887C; --stopFill:#2C1715; --stopLine:#4E2622;
+ --sh1:0 1px 2px rgba(0,0,0,.4);
+ --sh2:0 2px 5px rgba(0,0,0,.45), 0 8px 18px rgba(0,0,0,.4);
+ --sh3:0 10px 24px rgba(0,0,0,.55), 0 22px 54px rgba(0,0,0,.45);
+ --shBrand:0 6px 18px rgba(47,216,156,.22), 0 2px 5px rgba(47,216,156,.18);
     }
   }
   :root[data-theme="dark"]{
-    --bg:#080C11; --bg2:#0D1218;
-    --card:#141B23; --card2:#18212A;
-    --ink:#EAF0F6; --ink2:#A7B5C4; --ink3:#73828F;
-    --line:#242F3A; --line2:#1C2630;
-    --brand:#2FD89C; --brand2:#4FE8B2; --brandDeep:#1EA87A;
-    --brandFill:#0E2C21; --brandLine:#1D5340;
-    --warn:#E3A845; --warnFill:#2A2113; --warnLine:#4A3A1C;
-    --stop:#F2887C; --stopFill:#2C1715; --stopLine:#4E2622;
-    --sh1:0 1px 2px rgba(0,0,0,.4);
-    --sh2:0 2px 5px rgba(0,0,0,.45), 0 8px 18px rgba(0,0,0,.4);
-    --sh3:0 10px 24px rgba(0,0,0,.55), 0 22px 54px rgba(0,0,0,.45);
-    --shBrand:0 6px 18px rgba(47,216,156,.22), 0 2px 5px rgba(47,216,156,.18);
+ --bg:#080C11; --bg2:#0D1218;
+ --card:#141B23; --card2:#18212A;
+ --ink:#EAF0F6; --ink2:#A7B5C4; --ink3:#73828F;
+ --line:#242F3A; --line2:#1C2630;
+ --brand:#2FD89C; --brand2:#4FE8B2; --brandDeep:#1EA87A;
+ --brandFill:#0E2C21; --brandLine:#1D5340;
+ --warn:#E3A845; --warnFill:#2A2113; --warnLine:#4A3A1C;
+ --stop:#F2887C; --stopFill:#2C1715; --stopLine:#4E2622;
+ --sh1:0 1px 2px rgba(0,0,0,.4);
+ --sh2:0 2px 5px rgba(0,0,0,.45), 0 8px 18px rgba(0,0,0,.4);
+ --sh3:0 10px 24px rgba(0,0,0,.55), 0 22px 54px rgba(0,0,0,.45);
+ --shBrand:0 6px 18px rgba(47,216,156,.22), 0 2px 5px rgba(47,216,156,.18);
   }
 
   *{ box-sizing:border-box; }
@@ -60,7 +60,7 @@
       radial-gradient(900px 480px at 92% 4%, rgba(0,122,255,.07), transparent 58%),
       var(--bg);
     font:15px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
+ -webkit-font-smoothing:antialiased;
   }
   button,input,select{ font:inherit; color:inherit; }
   a{ color:var(--brand); }
@@ -315,7 +315,7 @@
     </div>
 
     <div class="privacy">
-      <b>Prototype sign-in.</b> There is no account and no password. Nothing is sent to a server —
+      <b>Prototype sign-in.</b> There is no account and no password. Nothing is sent to a server -
       your name and settings stay in this browser only. This assistant never asks for or stores
       email, phone, PAN, Aadhaar, folio numbers or OTPs.
     </div>
@@ -345,7 +345,7 @@
       <div class="hero">
         <h2 id="greet">Hi there</h2>
         <p class="wel" id="welcome">I answer factual questions about four Axis Mutual Fund schemes, and every answer carries one official source link.</p>
-        <p class="scope">In scope: Axis Large Cap · Axis Flexi Cap · Axis ELSS Tax Saver · Axis Mid Cap. Sources: Axis MF, SEBI, AMFI, CAMS/KFintech.</p>
+        <p class="scope">In scope: Axis Large Cap | Axis Flexi Cap | Axis ELSS Tax Saver | Axis Mid Cap. Sources: Axis MF, SEBI, AMFI, CAMS/KFintech.</p>
         <div class="factnote"><b>Facts-only. No investment advice.</b> I will not recommend schemes, quote returns, or take any personal details.</div>
       </div>
 
@@ -366,18 +366,18 @@
       <div id="log" aria-live="polite"></div>
 
       <form class="ask" id="form" autocomplete="off">
-        <input type="text" id="q" placeholder="Ask a factual question…" aria-label="Ask a factual question">
+        <input type="text" id="q" placeholder="Ask a factual question..." aria-label="Ask a factual question">
         <button class="send" type="submit">Ask</button>
       </form>
 
-      <p class="foot" id="shortdisc">Facts only — not investment advice. A student case-study prototype, not affiliated with Groww or Axis Mutual Fund. Figures change; confirm on the linked source. Full disclaimer in Settings → About.</p>
+      <p class="foot" id="shortdisc">Facts only - not investment advice. A student case-study prototype, not affiliated with Groww or Axis Mutual Fund. Figures change; confirm on the linked source. Full disclaimer in Settings -> About.</p>
     </section>
 
     <!-- ---------- SOURCES ---------- -->
     <section class="screen" id="s-sources">
       <div class="hero" style="margin-bottom:18px">
         <h2>Where answers come from</h2>
-        <p class="wel">Every answer is drawn from one of these <b id="srccount">23</b> official pages — AMC, regulator, industry body and registrar. No blogs, no aggregators.</p>
+        <p class="wel">Every answer is drawn from one of these <b id="srccount">23</b> official pages - AMC, regulator, industry body and registrar. No blogs, no aggregators.</p>
       </div>
       <div id="srclist"></div>
     </section>

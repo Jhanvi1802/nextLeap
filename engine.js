@@ -1,13 +1,13 @@
 /* ============================================================
-   engine.js — routing, retrieval and answer composition
-   ------------------------------------------------------------
+   engine.js - routing, retrieval and answer composition
+ ------------------------------------------------------------
    Pipeline (mirrors prompts/system-prompt.md):
-     1. PII gate        — block before anything is read or stored
-     2. Advice gate     — opinion / recommendation / suitability
-     3. Performance gate— returns, CAGR, projections
-     4. Slot filling    — resolve {scheme, plan, topic} from the query
-     5. Retrieval       — score the corpus, pick one passage
-     6. Composition     — <=3 sentences + exactly one citation + as-on date
+     1. PII gate - block before anything is read or stored
+     2. Advice gate - opinion / recommendation / suitability
+     3. Performance gate- returns, CAGR, projections
+     4. Slot filling - resolve {scheme, plan, topic} from the query
+     5. Retrieval - score the corpus, pick one passage
+     6. Composition - <=3 sentences + exactly one citation + as-on date
 
    Every exit path returns exactly one source link. There is no
    path that produces an answer without a citation.
@@ -23,7 +23,7 @@
 
   /* ---------- helpers ---------- */
   function norm(s) {
-    return String(s || '').toLowerCase().replace(/[‘’]/g, "'").replace(/\s+/g, ' ').trim();
+    return String(s || '').toLowerCase().replace(/[\'\']/g, "'").replace(/\s+/g, ' ').trim();
   }
   function countSentences(t) {
     var m = String(t).trim().match(/[.!?](\s|$)/g);
@@ -48,7 +48,7 @@
   }
 
   /* ---------- 2. Advice gate ------------------------------- */
-  /* Literal phrases. NOTE: a bare 'invest in' is deliberately NOT here —
+  /* Literal phrases. NOTE: a bare 'invest in' is deliberately NOT here -
      "can I invest in X with 100 rupees" is a factual minimums question. */
   var ADVICE = [
     'should i', 'shall i', 'should we', 'do you recommend', 'recommend', 'suggest',
@@ -60,9 +60,9 @@
   ];
 
   /* Patterns catch the shapes a literal list keeps missing:
-       "is axis elss good"        -> "is <anything> good"
+       "is axis elss good" -> "is <anything> good"
        "top performing axis fund" -> "<top|best> performing"
-       "best scheme for me"       -> "<good|best> <fund|scheme>"            */
+       "best scheme for me" -> "<good|best> <fund|scheme>"            */
   var ADVICE_RE = [
     { k: 'is-X-good',        re: /\bis\s+[^?.!]{0,45}\b(good|better|best|safe|worth|suitable|reliable)\b/ },
     { k: 'good-fund',        re: /\b(good|best|better|top|ideal|right)\s+(fund|scheme|option|choice|investment|plan)\b/ },
@@ -96,7 +96,7 @@
   /* ---------- 3b. wrong-AMC guard --------------------------
      Without this, "expense ratio of HDFC Flexi Cap?" matches the alias
      "flexi cap" and answers with the AXIS figure under an Axis citation
-     — a confidently wrong answer, the worst failure mode for a facts bot.
+ - a confidently wrong answer, the worst failure mode for a facts bot.
      Naming any AMC other than Axis must fall out of scope.            */
   var OTHER_AMCS = [
     'hdfc', 'sbi', 'icici', 'nippon', 'kotak', 'mirae', 'parag parikh', 'ppfas',
@@ -151,17 +151,17 @@
     var sid = s.src[p];
     var planWord = (p === 'direct') ? 'Direct Plan' : 'Regular Plan';
     var other = (p === 'direct') ? 'Regular' : 'Direct';
-    var planNote = explicitPlan ? '' : ' (' + planWord + ' — ask for the ' + other + ' Plan if you need that figure.)';
+    var planNote = explicitPlan ? '' : ' (' + planWord + ' - ask for the ' + other + ' Plan if you need that figure.)';
 
     switch (topic) {
       case 'expense_ratio':
-        return { text: 'The total expense ratio of ' + s.name + ' – ' + planWord + ' is ' + s.ter[p] + ', as disclosed on the scheme page.' + planNote, sid: sid, asOn: C.META.schemeFactsAsOn };
+        return { text: 'The total expense ratio of ' + s.name + ' - ' + planWord + ' is ' + s.ter[p] + ', as disclosed on the scheme page.' + planNote, sid: sid, asOn: C.META.schemeFactsAsOn };
       case 'exit_load':
         return { text: s.exitLoadText, sid: sid, asOn: C.META.schemeFactsAsOn };
       case 'min_sip':
-        return { text: 'The minimum monthly SIP for ' + s.name + ' is ' + s.minSip + ', as listed in the scheme’s minimum investment table.', sid: sid, asOn: C.META.schemeFactsAsOn };
+        return { text: 'The minimum monthly SIP for ' + s.name + ' is ' + s.minSip + ', as listed in the scheme\'s minimum investment table.', sid: sid, asOn: C.META.schemeFactsAsOn };
       case 'min_lumpsum':
-        return { text: 'The minimum lumpsum investment for ' + s.name + ' is ' + s.minLumpsum + ', as listed in the scheme’s minimum investment table.', sid: sid, asOn: C.META.schemeFactsAsOn };
+        return { text: 'The minimum lumpsum investment for ' + s.name + ' is ' + s.minLumpsum + ', as listed in the scheme\'s minimum investment table.', sid: sid, asOn: C.META.schemeFactsAsOn };
       case 'lock_in':
         return s.lockIn
           ? { text: s.name + ' carries a statutory lock-in of ' + s.lockIn + ', so units cannot be redeemed or switched out before that period ends.', sid: sid, asOn: C.META.schemeFactsAsOn }
@@ -183,7 +183,7 @@
           ? { text: s.name + ' is managed by ' + s.managers + ', per the scheme page.', sid: sid, asOn: C.META.schemeFactsAsOn }
           : null;
       case 'category':
-        return { text: s.name + ' is categorised as a ' + s.category + ' — ' + s.categoryText + '.', sid: sid, asOn: C.META.schemeFactsAsOn };
+        return { text: s.name + ' is categorised as a ' + s.category + ' - ' + s.categoryText + '.', sid: sid, asOn: C.META.schemeFactsAsOn };
       default:
         return null;
     }
@@ -212,12 +212,12 @@
     if (!q) {
       return {
         kind: 'clarify',
-        text: 'Ask me a factual question about one of the four Axis schemes in scope — for example its expense ratio, exit load, minimum SIP or benchmark.',
+        text: 'Ask me a factual question about one of the four Axis schemes in scope - for example its expense ratio, exit load, minimum SIP or benchmark.',
         source: C.EDU.scope, asOn: C.META.compiledOn, slots: {}
       };
     }
 
-    /* 1. PII — checked first, and the query is never echoed back */
+    /* 1. PII - checked first, and the query is never echoed back */
     var pii = detectPII(rawQuery);
     if (pii) {
       return {
@@ -232,7 +232,7 @@
     if (adv) {
       return {
         kind: 'refusal_advice',
-        text: 'I can only share published facts, so I cannot tell you what to buy, sell, hold or switch, or which scheme suits you. Ask me a factual question instead — expense ratio, exit load, minimum SIP, lock-in, riskometer or benchmark. For general investor education, the AMFI link below is a good starting point.',
+        text: 'I can only share published facts, so I cannot tell you what to buy, sell, hold or switch, or which scheme suits you. Ask me a factual question instead - expense ratio, exit load, minimum SIP, lock-in, riskometer or benchmark. For general investor education, the AMFI link below is a good starting point.',
         source: C.EDU.advice, asOn: C.META.compiledOn, slots: { trigger: adv }
       };
     }
@@ -247,12 +247,12 @@
       };
     }
 
-    /* 3b. another fund house named — never answer with an Axis figure */
+    /* 3b. another fund house named - never answer with an Axis figure */
     var amc = detectOtherAMC(q);
     if (amc) {
       return {
         kind: 'out_of_scope',
-        text: 'I only hold figures for four Axis Mutual Fund schemes, so I cannot answer for another fund house — and I will not substitute an Axis number in its place. Check that AMC’s own scheme page, or ask me the same question about Axis Large Cap, Flexi Cap, ELSS Tax Saver or Mid Cap.',
+        text: 'I only hold figures for four Axis Mutual Fund schemes, so I cannot answer for another fund house - and I will not substitute an Axis number in its place. Check that AMC\'s own scheme page, or ask me the same question about Axis Large Cap, Flexi Cap, ELSS Tax Saver or Mid Cap.',
         source: C.EDU.general, asOn: C.META.compiledOn, slots: { otherAMC: amc }
       };
     }
@@ -302,17 +302,17 @@
     if (scheme) {
       return {
         kind: 'clarify',
-        text: 'I have ' + scheme.name + ' in scope — which fact do you need? I can give you its expense ratio, exit load, minimum SIP or lumpsum, benchmark, riskometer or category.',
+        text: 'I have ' + scheme.name + ' in scope - which fact do you need? I can give you its expense ratio, exit load, minimum SIP or lumpsum, benchmark, riskometer or category.',
         source: src(scheme.src.regular), asOn: C.META.schemeFactsAsOn,
         slots: { scheme: scheme.name }
       };
     }
 
-    /* 5e. the AMC is named but nothing else resolved — steer, don't dead-end */
+    /* 5e. the AMC is named but nothing else resolved - steer, don't dead-end */
     if (q.indexOf('axis') > -1) {
       return {
         kind: 'clarify',
-        text: 'I cover four Axis schemes: Large Cap, Flexi Cap, ELSS Tax Saver and Mid Cap. Name one along with the fact you need — expense ratio, exit load, minimum SIP, lock-in, riskometer or benchmark.',
+        text: 'I cover four Axis schemes: Large Cap, Flexi Cap, ELSS Tax Saver and Mid Cap. Name one along with the fact you need - expense ratio, exit load, minimum SIP, lock-in, riskometer or benchmark.',
         source: C.EDU.scope, asOn: C.META.compiledOn, slots: { amc: 'Axis Mutual Fund' }
       };
     }
